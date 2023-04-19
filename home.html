@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Rotatable Gears</title>
+    <style>
+      html, body {
+			  margin: 0;
+			  padding: 0;
+			  width: 100%;
+			  height: 100%;
+        overflow-x: hidden;
+		  }
+      body {
+        background-color: #0a090c;
+        background: radial-gradient(ellipse, #948a8a 0%, #0a090c 70%, #0a090c 100%);
+			  background-repeat: no-repeat;
+			  background-size: cover;
+			  background-position: center;
+			  height: 100%;
+			  margin: 0;
+			  padding: 0;
+		}
+      .gear {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 65%;
+        cursor: pointer;
+      }
+      #gear1 {
+        left: 25%;
+        scale:2.5;
+      }
+      #gear2 {
+        left: 38%;
+        scale: 1.8;
+        transform-origin: center center;
+      }
+      #gear3 {
+        left: 55%;
+        scale: 2.3;
+        transform-origin: center center;
+      }
+      #gear4 {
+        left: 73%;
+        scale: 2.5;
+        transform-origin: center center;
+      }
+      #gear5 {
+        left: 82%;
+        scale: 1.3;
+        transform-origin: center center;
+      }
+      
+
+      @keyframes rotate-image {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+     
+    </style>
+  </head>
+  <body>
+    <img id="gear1" class="gear" src="./singlegearwithoutbg.png">
+    <img id="gear2" class="gear" src="./singlegearwithoutbg.png">    
+    <img id="gear3" class="gear" src="./singlegearwithoutbg.png">  
+    <img id="gear4" class="gear" src="./singlegearwithoutbg.png">  
+    <img id="gear5" class="gear" src="./singlegearwithoutbg.png">  
+    <script>
+      var gear1 = document.getElementById("gear1");
+      var gear2 = document.getElementById("gear2");
+      var gear3 = document.getElementById("gear3");
+      var gear4 = document.getElementById("gear4");
+      var gear5 = document.getElementById("gear5");
+      var isDragging1 = false;
+      var isDragging2 = false;
+      var isDragging3 = false;
+      var isDragging4 = false;
+      var isDragging5 = false;
+      var startX1, startY1, startX2, startY2, startX3, startY3, startX4, startY4, startX5, startY5;
+      var currentRotation1 = 0;
+      var currentRotation2 = 0;
+      var currentRotation3 = 0;
+      var currentRotation4 = 0;
+      var currentRotation5 = 0;
+
+      gear1.addEventListener("mousedown", function(event) {
+        event.preventDefault();
+        gear1.style.animationPlayState="paused";
+        isDragging1 = true;
+        startX1 = event.clientX;
+        startY1 = event.clientY;
+      });
+
+      window.addEventListener("mousemove", function(event) {
+        if (isDragging1) {
+          var xDiff = event.clientX - startX1;
+          var yDiff = event.clientY - startY1;
+          var newRotation = Math.atan2(yDiff, xDiff) * 180 / Math.PI;
+          gear1.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 + newRotation) + "deg)";
+          gear2.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation2 - newRotation) + "deg)";
+          gear3.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation2 + newRotation) + "deg)";
+          gear4.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation2 - newRotation) + "deg)";
+          gear5.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation2 + newRotation) + "deg)";
+        }
+        if (isDragging2) {
+          var xDiff = event.clientX - startX2;
+          var yDiff = event.clientY - startY2;
+          var newRotation = Math.atan2(yDiff, xDiff) * 180 / Math.PI;
+          gear2.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation2 + newRotation) + "deg)";
+          gear1.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 - newRotation) + "deg)";          
+          gear3.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 - newRotation) + "deg)";          
+          gear4.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 + newRotation) + "deg)";          
+          gear5.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 - newRotation) + "deg)";          
+        }
+        if (isDragging3) {
+          var xDiff = event.clientX - startX3;
+          var yDiff = event.clientY - startY3;
+          var newRotation = Math.atan2(yDiff, xDiff) * 180 / Math.PI;
+          gear3.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation2 + newRotation) + "deg)";
+          gear2.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 - newRotation) + "deg)";          
+          gear1.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 + newRotation) + "deg)";          
+          gear4.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 - newRotation) + "deg)";          
+          gear5.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 + newRotation) + "deg)";          
+        }
+        if (isDragging4) {
+          var xDiff = event.clientX - startX4;
+          var yDiff = event.clientY - startY4;
+          var newRotation = Math.atan2(yDiff, xDiff) * 180 / Math.PI;
+          gear4.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation2 + newRotation) + "deg)";
+          gear3.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation2 - newRotation) + "deg)";
+          gear2.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 + newRotation) + "deg)";          
+          gear1.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 - newRotation) + "deg)";          
+          gear5.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 - newRotation) + "deg)";          
+        }
+        if (isDragging5) {
+          var xDiff = event.clientX - startX5;
+          var yDiff = event.clientY - startY5;
+          var newRotation = Math.atan2(yDiff, xDiff) * 180 / Math.PI;
+          gear4.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation2 - newRotation) + "deg)";
+          gear3.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation2 + newRotation) + "deg)";
+          gear2.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 - newRotation) + "deg)";          
+          gear1.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 + newRotation) + "deg)";          
+          gear5.style.transform = "translate(-50%, -50%) rotate(" + (currentRotation1 + newRotation) + "deg)";          
+        }
+      });
+
+      window.addEventListener("mouseup", function() {
+        isDragging1 = false;
+        isDragging2 = false;
+        isDragging3 = false;
+        isDragging4 = false;
+        isDragging5 = false;
+        currentRotation1 = getRotationAngle(gear1.style.transform);
+        currentRotation2 = getRotationAngle(gear2.style.transform);
+        currentRotation3 = getRotationAngle(gear3.style.transform);
+        currentRotation4 = getRotationAngle(gear4.style.transform);
+        currentRotation5 = getRotationAngle(gear5.style.transform);
+        gear1.style.animationPlayState="running";
+      });
+      function getRotationAngle(transformValue) {
+        var match = transformValue.match(/rotate\(([-\d]+)deg\)/);
+        return match ? parseInt(match[1]) : 0;
+      }
+
+      gear2.addEventListener("mousedown", function(event) {
+        event.preventDefault();
+        isDragging2 = true;
+        startX2 = event.clientX;
+        startY2 = event.clientY;
+      });
+      gear3.addEventListener("mousedown", function(event) {
+        event.preventDefault();
+        isDragging3 = true;
+        startX3 = event.clientX;
+        startY3 = event.clientY;
+      });
+      gear4.addEventListener("mousedown", function(event) {
+        event.preventDefault();
+        isDragging4 = true;
+        startX4 = event.clientX;
+        startY4 = event.clientY;
+      });
+      gear5.addEventListener("mousedown", function(event) {
+        event.preventDefault();
+        isDragging5 = true;
+        startX5 = event.clientX;
+        startY5 = event.clientY;
+      });
+    </script>
+  </body>
+</html>
